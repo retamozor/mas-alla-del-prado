@@ -1,0 +1,114 @@
+[gd_scene format=3 uid="uid://1x5v2og6yriv"]
+
+[ext_resource type="Script" uid="uid://bstpggrrpuv1t" path="res://scripts/main_menu.gd" id="1_8ln24"]
+[ext_resource type="Texture2D" uid="uid://shnl8l38togj" path="res://assets/main_menu/main_tittle.png" id="2_8ln24"]
+[ext_resource type="VideoStream" uid="uid://c54awnf3s3bcx" path="res://assets/main_menu/background.ogv" id="2_rtw2f"]
+[ext_resource type="Texture2D" uid="uid://cb7xvc84yo2kd" path="res://assets/main_menu/play_button.png" id="3_8ln24"]
+[ext_resource type="Texture2D" uid="uid://dqnu8qpvebcol" path="res://assets/main_menu/credits_button.png" id="4_8ln24"]
+[ext_resource type="Texture2D" uid="uid://d03c5ylsd2b7b" path="res://assets/main_menu/exit_button.png" id="5_8ln24"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cf2dk"]
+atlas = ExtResource("3_8ln24")
+region = Rect2(0, 0, 728.00037, 166)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_og2ub"]
+atlas = ExtResource("4_8ln24")
+region = Rect2(0, 0, 728, 167)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3o5ek"]
+atlas = ExtResource("5_8ln24")
+region = Rect2(0, 0, 728, 166)
+
+[node name="MainMenu" type="Control" unique_id=1243508772]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_8ln24")
+
+[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="." unique_id=1738372125]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stream = ExtResource("2_rtw2f")
+autoplay = true
+expand = true
+loop = true
+
+[node name="MenuButtons" type="VBoxContainer" parent="." unique_id=373896097]
+custom_minimum_size = Vector2(200, 160)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.7
+anchor_right = 0.9
+anchor_bottom = 1.0
+offset_left = -9.799988
+offset_right = 9.800049
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="GameTittle" type="TextureRect" parent="MenuButtons" unique_id=2016265622]
+custom_minimum_size = Vector2(250, 50)
+layout_mode = 2
+size_flags_vertical = 4
+texture = ExtResource("2_8ln24")
+expand_mode = 5
+stretch_mode = 4
+
+[node name="PlayContiner" type="CenterContainer" parent="MenuButtons" unique_id=1305407674]
+custom_minimum_size = Vector2(0, 46)
+layout_mode = 2
+
+[node name="PlayButton" type="TextureButton" parent="MenuButtons/PlayContiner" unique_id=2098972653]
+custom_minimum_size = Vector2(200, 46)
+layout_mode = 2
+size_flags_horizontal = 4
+offset_transform_enabled = true
+texture_normal = SubResource("AtlasTexture_cf2dk")
+ignore_texture_size = true
+stretch_mode = 4
+
+[node name="CreditsContiner" type="CenterContainer" parent="MenuButtons" unique_id=926922528]
+custom_minimum_size = Vector2(0, 46)
+layout_mode = 2
+
+[node name="CreditsButton" type="TextureButton" parent="MenuButtons/CreditsContiner" unique_id=504755617]
+custom_minimum_size = Vector2(200, 46)
+layout_mode = 2
+size_flags_horizontal = 4
+offset_transform_enabled = true
+texture_normal = SubResource("AtlasTexture_og2ub")
+ignore_texture_size = true
+stretch_mode = 4
+
+[node name="ExitContiner" type="CenterContainer" parent="MenuButtons" unique_id=597473766]
+custom_minimum_size = Vector2(0, 46)
+layout_mode = 2
+
+[node name="ExitButton" type="TextureButton" parent="MenuButtons/ExitContiner" unique_id=1633312471]
+custom_minimum_size = Vector2(200, 46)
+layout_mode = 2
+size_flags_horizontal = 4
+offset_transform_enabled = true
+texture_normal = SubResource("AtlasTexture_3o5ek")
+ignore_texture_size = true
+stretch_mode = 4
+
+[node name="QuitDialog" type="ConfirmationDialog" parent="." unique_id=341357500]
+oversampling_override = 1.0
+title = "Salir del juego"
+size = Vector2i(253, 100)
+ok_button_text = "Si"
+dialog_text = "Estas seguro que quieres salir?"
+cancel_button_text = "No"
+
+[connection signal="pressed" from="MenuButtons/ExitContiner/ExitButton" to="." method="_on_exit_button_pressed"]
+[connection signal="confirmed" from="QuitDialog" to="." method="_on_quit_dialog_confirmed"]
